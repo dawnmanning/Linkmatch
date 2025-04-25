@@ -101,6 +101,7 @@ function goToSwiping() {
       <input id="maxDR" type="number" placeholder="Max" style="width: 60px;" />
       <button onclick="applyFilters()">Apply Filters</button>
     </div>
+
     <div class="swipe-container">
       <div id="card" class="card">
         <img id="logo" src="" alt="Business Logo" />
@@ -109,11 +110,15 @@ function goToSwiping() {
         <p id="bizURL"></p>
         <p id="bizDR"></p>
       </div>
+
       <div class="buttons">
         <button onclick="skip()">❌ Skip</button>
         <button onclick="connect()">✅ Connect</button>
       </div>
+
       <div id="result"></div>
+
+      <button onclick="showMatches()" style="margin-top: 1rem; width: 100%;">📂 View My Matches</button>
     </div>
   `;
   loadCard();
@@ -164,7 +169,7 @@ function connect() {
   const boostTraffic = Math.floor(Math.random() * 20) + 10;
   const biz = filteredBusinesses[currentIndex];
 
-  myLikes.push(biz); // save like
+  myLikes.push(biz);
 
   const likesBack = Math.random() < 0.6;
   if (likesBack) {
@@ -184,7 +189,7 @@ function connect() {
   }
 }
 
-// --- MATCH + CHAT ---
+// --- MATCH + CHAT + VIEW MATCHES ---
 function showMatchScreen(biz) {
   document.getElementById("app").innerHTML = `
     <div class="match-screen">
@@ -229,8 +234,42 @@ function continueSwiping() {
   goToSwiping();
 }
 
+function showMatches() {
+  if (matches.length === 0) {
+    document.getElementById("app").innerHTML = `
+      <div class="match-list">
+        <h1>📂 My Matches</h1>
+        <p>You haven't matched with anyone yet! Keep swiping ➡️</p>
+        <button onclick="goToSwiping()">Back to Swiping</button>
+      </div>
+    `;
+    return;
+  }
+
+  let html = `
+    <div class="match-list">
+      <h1>📂 My Matches</h1>
+  `;
+
+  matches.forEach((biz) => {
+    html += `
+      <div class="match-card" style="background:#fff;padding:1rem;margin-bottom:1rem;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+        <img src="${biz.logo}" alt="${biz.name}" style="width:60px;height:60px;border-radius:50%;float:left;margin-right:10px;">
+        <strong>${biz.name}</strong><br>
+        <span>Sector: ${biz.sector}</span><br>
+        <button onclick="startChat('${biz.name}')">💬 Chat Again</button>
+      </div>
+    `;
+  });
+
+  html += `<button onclick="goToSwiping()" style="margin-top:1rem;">⬅️ Back to Swiping</button></div>`;
+  document.getElementById("app").innerHTML = html;
+}
+
 // --- INIT APP ---
 showLogin();
+
+
 
 
 
