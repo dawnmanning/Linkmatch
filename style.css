@@ -1,59 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
+/* General Styles */
+:root {
+    --primary-purple: #7f00ff;
+    --secondary-purple: #e100ff;
+    --white: #ffffff;
+    --gray: #f0f0f0;
+    --dark: #333333;
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Linkmatch 🔗 | Backlink Matching App</title>
-    <link rel="stylesheet" href="style.css" />
-</head>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+    color: var(--white);
+}
 
-<body>
-    <header>
-        <div class="logo">Linkmatch 🔗</div>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">How It Works</a>
-            <a href="#">Contact</a>
-        </nav>
-        <a href="#" class="cta-button">Start Matching ➡️</a>
-    </header>
+header {
+    background: var(--primary-purple);
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
 
-    <section id="how-it-works" class="section">
-        <div class="section-inner">
-            <h2>How It Works</h2>
-            <div class="feature-cards">
-                <div class="feature-card">
-                    <h3>📄 Create Profile</h3>
-                    <p>Add your business and DR score to get started.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>❤️ Swipe & Match</h3>
-                    <p>Find businesses based on sector + DR relevance.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🔗 Link Swap</h3>
-                    <p>Connect + share backlinks to grow authority fast.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+header .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
 
-    <section id="contact" class="section">
-        <div class="section-inner">
-            <h2>Get Launch Updates</h2>
-            <div class="email-capture">
-                <input type="email" placeholder="Your email...">
-                <button onclick="alert('Thanks! You\'re on the list 🎉')">Notify Me</button>
-            </div>
-        </div>
-    </section>
+header nav a {
+    color: var(--white);
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 600;
+    transition: color 0.3s;
+}
 
-    <footer>
-        &copy; 2025 <strong>Linkmatch</strong>. All rights reserved.
-    </footer>
+header nav a:hover {
+    color: var(--secondary-purple);
+}
 
-</body>
+header nav a:last-child {
+    background-color: var(--secondary-purple);
+    padding: 10px 20px;
+    border-radius: 30px;
+}
 
-</html>
+#hero {
+    background: var(--primary-purple);
+    color: var(--white);
+    text-align: center;
+    padding: 100px 20px;
+}
+
+#hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+#hero p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.cta-btn {
+    background-color: var(--secondary-purple);
+    color: var(--white);
+    padding: 12px 35px;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.cta-btn:hover {
+    background-color: var(--primary-purple);
+}
+
+#how-it-works {
+    background: var(--white);
+    color: var(--dark);
+    text-align: center;
+    padding: 50px 20px;
+}
+
+#how-it-works h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.steps {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.step {
+    background: var(--gray);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.step h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+#get-started {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+footer {
+    background: var(--primary-purple);
+    color: var(--white);
+    text-align: center;
+    padding: 20px;
+}
 
