@@ -65,3 +65,24 @@ button:hover {
   margin-top: 1rem;
   font-weight: bold;
 }
+.swipe-left {
+  animation: swipeLeft 0.5s forwards;
+}
+
+.swipe-right {
+  animation: swipeRight 0.5s forwards;
+}
+
+@keyframes swipeLeft {
+  to {
+    transform: translateX(-500px);
+    opacity: 0;
+  }
+}
+
+@keyframes swipeRight {
+  to {
+    transform: translateX(500px);
+    opacity: 0;
+  }
+}
