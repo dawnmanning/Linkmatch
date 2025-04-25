@@ -143,3 +143,31 @@ function connect() {
 
 // Start the app
 showLogin();
+function skip() {
+  const card = document.getElementById("card");
+  card.classList.add("swipe-left");
+  setTimeout(() => {
+    currentIndex++;
+    card.classList.remove("swipe-left");
+    loadCard();
+  }, 500);
+}
+
+function connect() {
+  const card = document.getElementById("card");
+  const boostDR = Math.floor(Math.random() * 10) + 5;
+  const boostTraffic = Math.floor(Math.random() * 20) + 10;
+
+  document.getElementById("result").innerHTML = `
+    🌟 Potential boost:<br>
+    +${boostDR}% DR | +${boostTraffic}% Traffic
+  `;
+
+  card.classList.add("swipe-right");
+  setTimeout(() => {
+    currentIndex++;
+    card.classList.remove("swipe-right");
+    loadCard();
+  }, 500);
+}
+
