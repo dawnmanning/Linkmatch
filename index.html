@@ -3,85 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Backlink Match 💘 - Find Your Perfect SEO Partner</title>
+  <title>Backlink Match 💘 | Find Your Perfect SEO Partner</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-      background: linear-gradient(to bottom right, #7f00ff, #e100ff);
-      font-family: 'Poppins', sans-serif;
-      color: white;
       margin: 0;
-      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #7f00ff 0%, #e100ff 100%);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
       text-align: center;
-      min-height: 100vh;
-      justify-content: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, #7f00ff, #e100ff);
+      position: relative;
     }
-    .hero {
-      max-width: 600px;
-      padding: 20px;
-    }
-    .hero h1 {
+
+    header h1 {
       font-size: 3rem;
-      margin-bottom: 10px;
+      margin-bottom: 1rem;
+      animation: fadeIn 1s ease-out;
     }
-    .hero p {
+
+    header p {
       font-size: 1.2rem;
-      margin-bottom: 30px;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      animation: fadeIn 1.5s ease-out;
     }
+
     .cta-button {
       background: white;
       color: #7f00ff;
-      padding: 15px 30px;
+      padding: 15px 40px;
       font-size: 1.2rem;
       font-weight: bold;
       border: none;
       border-radius: 50px;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      transition: all 0.3s ease;
       text-decoration: none;
+      animation: pulse 2s infinite;
       display: inline-block;
     }
+
     .cta-button:hover {
-      transform: scale(1.05);
       background: #f5f5f5;
+      transform: scale(1.05);
     }
-    .features {
-      margin-top: 40px;
-      text-align: left;
-      padding: 20px;
-    }
-    .features h2 {
+
+    section {
+      padding: 4rem 2rem;
+      background: white;
+      color: #111;
       text-align: center;
-      margin-bottom: 20px;
     }
-    .feature-item {
-      margin-bottom: 20px;
-      font-size: 1rem;
+
+    section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .feature-card {
+      background: #fafafa;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      background: #6a00cc;
+      color: #fff;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @media(max-width: 768px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="hero">
+<header>
   <h1>Backlink Match 💘</h1>
-  <p>Find your perfect backlink partner.<br>Grow your SEO. Boost your traffic. Connect with serious businesses. 🚀</p>
+  <p>Find the perfect SEO partner for your website. Swipe, match, and boost your rankings together. 🚀</p>
   <a class="cta-button" href="app.html">Start Matching ➡️</a>
-</div>
+</header>
 
-<div class="features">
+<section>
   <h2>How It Works</h2>
-  <div class="feature-item">✅ Create your business profile</div>
-  <div class="feature-item">✅ Swipe businesses by sector & DR</div>
-  <div class="feature-item">✅ Match & start a backlink conversation!</div>
+  <div class="features">
+    <div class="feature-card">
+      <h3>📄 Create Profile</h3>
+      <p>Tell us about your business and your DR score. Show off your brand!</p>
+    </div>
+    <div class="feature-card">
+      <h3>❤️ Swipe & Match</h3>
+      <p>Browse businesses by industry, DR, and more. Swipe right to connect.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🔗 Link Swap</h3>
+      <p>Chat directly and swap powerful backlinks to grow your authority.</p>
+    </div>
+  </div>
+</section>
 
-  <h2>Key Features</h2>
-  <div class="feature-item">🔎 Filter by Sector & Authority</div>
-  <div class="feature-item">💬 Chat & Send Link Requests</div>
-  <div class="feature-item">📂 View and Manage Matches</div>
-</div>
+<footer>
+  &copy; 2025 Backlink Match. All rights reserved.
+</footer>
 
 </body>
 </html>
