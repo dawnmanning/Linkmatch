@@ -13,7 +13,7 @@ const businesses = [
   { logo: "https://via.placeholder.com/80", name: "TrendSet Fashion", sector: "Fashion", url: "https://trendset.fashion", dr: 44 }
 ];
 
-// --- LOGIN PAGE ---
+// --- LOGIN ---
 function showLogin() {
   document.getElementById("app").innerHTML = `
     <div class="login-container">
@@ -44,29 +44,19 @@ function showProfileSetup() {
   document.getElementById("app").innerHTML = `
     <div class="profile-setup">
       <h1>🚀 Build Your Business Profile</h1>
-      <input id="bizName" type="text" placeholder="Business Name" />
-      <input id="bizURL" type="url" placeholder="Website URL" />
+      <input id="bizName" type="text" placeholder="Business Name" value="${userProfile.name || ''}" />
+      <input id="bizURL" type="url" placeholder="Website URL" value="${userProfile.url || ''}" />
       <label>Choose Business Sector:</label>
       <select id="bizSector">
-        <option value="Technology">Technology</option>
-        <option value="SaaS">SaaS</option>
-        <option value="E-commerce">E-commerce</option>
-        <option value="Marketing Agency">Marketing Agency</option>
-        <option value="Finance">Finance</option>
-        <option value="Game Development">Game Development</option>
-        <option value="AI / Machine Learning">AI / Machine Learning</option>
-        <option value="Health & Wellness">Health & Wellness</option>
-        <option value="Education">Education</option>
-        <option value="Travel">Travel</option>
-        <option value="Food & Beverage">Food & Beverage</option>
-        <option value="Fashion">Fashion</option>
-        <option value="Crypto / Blockchain">Crypto / Blockchain</option>
-        <option value="Real Estate">Real Estate</option>
-        <option value="Entertainment">Entertainment</option>
+        <option value="">-- Choose Sector --</option>
+        ${[
+          "Technology", "SaaS", "E-commerce", "Marketing Agency", "Finance", "Game Development",
+          "AI / Machine Learning", "Health & Wellness", "Education", "Travel",
+          "Food & Beverage", "Fashion", "Crypto / Blockchain", "Real Estate", "Entertainment"
+        ].map(opt => `<option value="${opt}" ${userProfile.sector === opt ? 'selected' : ''}>${opt}</option>`).join("")}
       </select>
-      <input id="dr" type="number" placeholder="Your DR/DA score (optional)" />
+      <input id="dr" type="number" placeholder="Your DR/DA score" value="${userProfile.dr || ''}" />
       <button onclick="submitProfile()">Save Profile</button>
-      <div id="profileResult"></div>
     </div>
   `;
 }
@@ -90,15 +80,11 @@ function goToSwiping() {
       <label>Sector:</label>
       <select id="filterSector">
         <option value="">All</option>
-        <option value="SaaS">SaaS</option>
-        <option value="Game Development">Game Development</option>
-        <option value="Health & Wellness">Health & Wellness</option>
-        <option value="Crypto / Blockchain">Crypto / Blockchain</option>
-        <option value="Fashion">Fashion</option>
+        ${["SaaS", "Game Development", "Health & Wellness", "Crypto / Blockchain", "Fashion"].map(s => `<option value="${s}">${s}</option>`).join("")}
       </select>
       <label>DR Range:</label>
-      <input id="minDR" type="number" placeholder="Min" style="width: 60px;" />
-      <input id="maxDR" type="number" placeholder="Max" style="width: 60px;" />
+      <input id="minDR" type="number" placeholder="Min" />
+      <input id="maxDR" type="number" placeholder="Max" />
       <button onclick="applyFilters()">Apply Filters</button>
     </div>
 
@@ -117,8 +103,8 @@ function goToSwiping() {
       </div>
 
       <div id="result"></div>
-
-      <button onclick="showMatches()" style="margin-top: 1rem; width: 100%;">📂 View My Matches</button>
+      <button onclick="showMatches()">📂 View Matches</button>
+      <button onclick="showSettings()">⚙️ Settings</button>
     </div>
   `;
   loadCard();
@@ -165,21 +151,16 @@ function skip() {
 
 function connect() {
   const card = document.getElementById("card");
-  const boostDR = Math.floor(Math.random() * 10) + 5;
-  const boostTraffic = Math.floor(Math.random() * 20) + 10;
   const biz = filteredBusinesses[currentIndex];
-
   myLikes.push(biz);
 
   const likesBack = Math.random() < 0.6;
   if (likesBack) {
     matches.push(biz);
+    saveMatches();
     showMatchScreen(biz);
   } else {
-    document.getElementById("result").innerHTML = `
-      🌟 Potential boost:<br>
-      +${boostDR}% DR | +${boostTraffic}% Traffic
-    `;
+    document.getElementById("result").innerHTML = `No match this time!`;
     card.classList.add("swipe-right");
     setTimeout(() => {
       currentIndex++;
@@ -189,8 +170,11 @@ function connect() {
   }
 }
 
-// --- MATCH + CHAT + VIEW MATCHES ---
+// --- MATCH + CHAT + SETTINGS ---
 function showMatchScreen(biz) {
+  const boostDR = Math.floor(Math.random() * 15) + 5;
+  const boostTraffic = Math.floor(Math.random() * 300) + 100;
+
   document.getElementById("app").innerHTML = `
     <div class="match-screen">
       <h1>🎉 It's a Match!</h1>
@@ -198,6 +182,7 @@ function showMatchScreen(biz) {
       <h2>${biz.name}</h2>
       <p>Sector: ${biz.sector}</p>
       <p>Ready to connect and swap backlinks? 🚀</p>
+      <p><strong>🔧 Estimated Boost:</strong><br> +${boostDR}% DR | +${boostTraffic} visits/mo</p>
       <button onclick="startChat('${biz.name}')">Start Chat 💬</button>
       <button onclick="continueSwiping()">Keep Swiping ➡️</button>
     </div>
@@ -208,11 +193,13 @@ function startChat(bizName) {
   document.getElementById("app").innerHTML = `
     <div class="chat-window">
       <h1>💬 Chat with ${bizName}</h1>
-      <div id="chatMessages" style="height:200px;overflow-y:auto;margin-bottom:10px;border:1px solid #ccc;padding:10px;border-radius:10px;">
+      <div id="chatMessages" style="height:200px;overflow-y:auto;margin-bottom:10px;">
         <p><strong>${bizName}:</strong> Hey there! Excited to swap links? 🚀</p>
       </div>
       <input id="chatInput" type="text" placeholder="Type your message..." />
       <button onclick="sendMessage('${bizName}')">Send</button>
+      <button onclick="sendLinkRequest()">🔗 Send Link Request</button>
+      <button onclick="showMatches()">⬅️ Back to Matches</button>
     </div>
   `;
 }
@@ -225,13 +212,13 @@ function sendMessage(bizName) {
   chatBox.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
   input.value = "";
   setTimeout(() => {
-    chatBox.innerHTML += `<p><strong>${bizName}:</strong> Awesome! I'll link to you today 🚀</p>`;
+    chatBox.innerHTML += `<p><strong>${bizName}:</strong> Sounds great! Let's do it. ✅</p>`;
     chatBox.scrollTop = chatBox.scrollHeight;
   }, 1000);
 }
 
-function continueSwiping() {
-  goToSwiping();
+function sendLinkRequest() {
+  alert("🔗 Link Request Sent!");
 }
 
 function showMatches() {
@@ -239,21 +226,17 @@ function showMatches() {
     document.getElementById("app").innerHTML = `
       <div class="match-list">
         <h1>📂 My Matches</h1>
-        <p>You haven't matched with anyone yet! Keep swiping ➡️</p>
+        <p>No matches yet. Keep swiping!</p>
         <button onclick="goToSwiping()">Back to Swiping</button>
       </div>
     `;
     return;
   }
 
-  let html = `
-    <div class="match-list">
-      <h1>📂 My Matches</h1>
-  `;
-
+  let html = `<div class="match-list"><h1>📂 My Matches</h1>`;
   matches.forEach((biz) => {
     html += `
-      <div class="match-card" style="background:#fff;padding:1rem;margin-bottom:1rem;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+      <div class="match-card">
         <img src="${biz.logo}" alt="${biz.name}" style="width:60px;height:60px;border-radius:50%;float:left;margin-right:10px;">
         <strong>${biz.name}</strong><br>
         <span>Sector: ${biz.sector}</span><br>
@@ -261,10 +244,48 @@ function showMatches() {
       </div>
     `;
   });
-
-  html += `<button onclick="goToSwiping()" style="margin-top:1rem;">⬅️ Back to Swiping</button></div>`;
+  html += `<button onclick="goToSwiping()">⬅️ Back to Swiping</button></div>`;
   document.getElementById("app").innerHTML = html;
 }
 
-// --- INIT APP ---
+function showSettings() {
+  document.getElementById("app").innerHTML = `
+    <div class="settings">
+      <h1>⚙️ Settings</h1>
+      <button onclick="showProfileSetup()">Edit Profile</button>
+      <button onclick="clearMatches()">Clear Matches</button>
+      <button onclick="logout()">Log Out</button>
+    </div>
+  `;
+}
+
+// --- STORAGE ---
+function saveMatches() {
+  localStorage.setItem('savedMatches', JSON.stringify(matches));
+}
+
+function loadSavedMatches() {
+  const saved = localStorage.getItem('savedMatches');
+  if (saved) matches = JSON.parse(saved);
+}
+
+function clearMatches() {
+  localStorage.removeItem('savedMatches');
+  matches = [];
+  alert("✅ Matches cleared!");
+  showSettings();
+}
+
+function logout() {
+  userProfile = {};
+  currentIndex = 0;
+  myLikes = [];
+  matches = [];
+  localStorage.clear();
+  showLogin();
+}
+
+// --- INIT ---
+loadSavedMatches();
 showLogin();
+
