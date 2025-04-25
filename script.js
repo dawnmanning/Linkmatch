@@ -193,16 +193,19 @@ function startChat(bizName) {
   document.getElementById("app").innerHTML = `
     <div class="chat-window">
       <h1>💬 Chat with ${bizName}</h1>
-      <div id="chatMessages" style="height:200px;overflow-y:auto;margin-bottom:10px;">
+      <div id="chatMessages" style="height:200px;overflow-y:auto;margin-bottom:10px;background:white;padding:10px;border-radius:10px;color:#111;">
         <p><strong>${bizName}:</strong> Hey there! Excited to swap links? 🚀</p>
       </div>
-      <input id="chatInput" type="text" placeholder="Type your message..." />
+
+      <input id="chatInput" type="text" placeholder="Type your message..." style="width:100%; padding:10px; border-radius:10px; border:none; margin-bottom:10px;" />
+      
       <button onclick="sendMessage('${bizName}')">Send</button>
       <button onclick="sendLinkRequest()">🔗 Send Link Request</button>
-      <button onclick="showMatches()">⬅️ Back to Matches</button>
+      <button onclick="showMatches()" style="margin-top: 10px;">⬅️ Back to Matches</button>
     </div>
   `;
 }
+
 
 function sendMessage(bizName) {
   const input = document.getElementById("chatInput");
