@@ -160,7 +160,7 @@ function connect() {
     saveMatches();
     showMatchScreen(biz);
   } else {
-    document.getElementById("result").innerHTML = `No match this time!`;
+    document.getElementById("result").innerText = `No match this time!`;
     card.classList.add("swipe-right");
     setTimeout(() => {
       currentIndex++;
@@ -170,7 +170,7 @@ function connect() {
   }
 }
 
-// --- MATCH + CHAT + SETTINGS ---
+// --- MATCH + CHAT ---
 function showMatchScreen(biz) {
   const boostDR = Math.floor(Math.random() * 15) + 5;
   const boostTraffic = Math.floor(Math.random() * 300) + 100;
@@ -196,16 +196,13 @@ function startChat(bizName) {
       <div id="chatMessages" style="height:200px;overflow-y:auto;margin-bottom:10px;background:white;padding:10px;border-radius:10px;color:#111;">
         <p><strong>${bizName}:</strong> Hey there! Excited to swap links? 🚀</p>
       </div>
-
       <input id="chatInput" type="text" placeholder="Type your message..." style="width:100%; padding:10px; border-radius:10px; border:none; margin-bottom:10px;" />
-      
       <button onclick="sendMessage('${bizName}')">Send</button>
       <button onclick="sendLinkRequest()">🔗 Send Link Request</button>
       <button onclick="showMatches()" style="margin-top: 10px;">⬅️ Back to Matches</button>
     </div>
   `;
 }
-
 
 function sendMessage(bizName) {
   const input = document.getElementById("chatInput");
@@ -215,7 +212,7 @@ function sendMessage(bizName) {
   chatBox.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
   input.value = "";
   setTimeout(() => {
-    chatBox.innerHTML += `<p><strong>${bizName}:</strong> Sounds great! Let's do it. ✅</p>`;
+    chatBox.innerHTML += `<p><strong>${bizName}:</strong> Awesome! I'll link to you today 🚀</p>`;
     chatBox.scrollTop = chatBox.scrollHeight;
   }, 1000);
 }
@@ -224,6 +221,11 @@ function sendLinkRequest() {
   alert("🔗 Link Request Sent!");
 }
 
+function continueSwiping() {
+  goToSwiping();
+}
+
+// --- MATCH LIST & SETTINGS ---
 function showMatches() {
   if (matches.length === 0) {
     document.getElementById("app").innerHTML = `
@@ -291,4 +293,5 @@ function logout() {
 // --- INIT ---
 loadSavedMatches();
 showLogin();
+
 
