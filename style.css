@@ -1,154 +1,59 @@
-/* Global Reset */
-* {
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="en">
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(to bottom right, #7f00ff, #e100ff);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linkmatch 🔗 | Backlink Matching App</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
 
-/* App Container Wrapper */
-#app {
-  width: 100%;
-  max-width: 400px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  padding: 30px 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  backdrop-filter: blur(10px);
-}
+<body>
+    <header>
+        <div class="logo">Linkmatch 🔗</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">How It Works</a>
+            <a href="#">Contact</a>
+        </nav>
+        <a href="#" class="cta-button">Start Matching ➡️</a>
+    </header>
 
-/* Input and Select */
-input, select {
-  width: 100%;
-  margin: 10px 0;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  font-size: 1rem;
-  background: white;
-  color: #111;
-}
+    <section id="how-it-works" class="section">
+        <div class="section-inner">
+            <h2>How It Works</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <h3>📄 Create Profile</h3>
+                    <p>Add your business and DR score to get started.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>❤️ Swipe & Match</h3>
+                    <p>Find businesses based on sector + DR relevance.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔗 Link Swap</h3>
+                    <p>Connect + share backlinks to grow authority fast.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-/* Buttons */
-button {
-  width: 100%;
-  margin: 10px 0;
-  padding: 12px;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  background: white;
-  color: #7f00ff;
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
+    <section id="contact" class="section">
+        <div class="section-inner">
+            <h2>Get Launch Updates</h2>
+            <div class="email-capture">
+                <input type="email" placeholder="Your email...">
+                <button onclick="alert('Thanks! You\'re on the list 🎉')">Notify Me</button>
+            </div>
+        </div>
+    </section>
 
-button:hover {
-  transform: scale(1.03);
-  background: #f5f5f5;
-}
+    <footer>
+        &copy; 2025 <strong>Linkmatch</strong>. All rights reserved.
+    </footer>
 
-/* Card */
-.card {
-  background: white;
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
-  margin: 1rem auto;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  color: #111;
-}
+</body>
 
-.card img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 1rem;
-}
+</html>
 
-/* Swipe Buttons */
-.buttons {
-  display: flex;
-  justify-content: space-between;
-}
-
-.buttons button {
-  width: 48%;
-}
-
-/* Swipe Animations */
-.swipe-left {
-  animation: swipeLeft 0.5s forwards;
-}
-
-.swipe-right {
-  animation: swipeRight 0.5s forwards;
-}
-
-@keyframes swipeLeft {
-  to {
-    transform: translateX(-400px) rotate(-20deg);
-    opacity: 0;
-  }
-}
-
-@keyframes swipeRight {
-  to {
-    transform: translateX(400px) rotate(20deg);
-    opacity: 0;
-  }
-}
-
-/* Chat */
-.chat-window {
-  background: rgba(255,255,255,0.1);
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
-}
-
-#chatMessages {
-  background: white;
-  border-radius: 10px;
-  padding: 10px;
-  color: #111;
-}
-
-/* Filters */
-.filter-bar {
-  background: rgba(255,255,255,0.1);
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  text-align: center;
-}
-
-/* Matches List */
-.match-list {
-  background: rgba(255,255,255,0.1);
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-.match-card {
-  background: white;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  color: #111;
-}
