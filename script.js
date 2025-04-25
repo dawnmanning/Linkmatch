@@ -85,28 +85,29 @@ const businesses = [
 
 let userProfile = {};
 let currentIndex = 0;
+let filteredBusinesses = [...businesses];
 
-document.getElementById("app").innerHTML = `
-  <div class="filter-bar">
-    <label>Sector:</label>
-    <select id="filterSector">
-      <option value="">All</option>
-      <option value="SaaS">SaaS</option>
-      <option value="Game Development">Game Development</option>
-      <option value="Health & Wellness">Health & Wellness</option>
-      <option value="Crypto / Blockchain">Crypto / Blockchain</option>
-      <option value="Fashion">Fashion</option>
-    </select>
+function goToSwiping() {
+  document.getElementById("app").innerHTML = `
+    <div class="filter-bar">
+      <label>Sector:</label>
+      <select id="filterSector">
+        <option value="">All</option>
+        <option value="SaaS">SaaS</option>
+        <option value="Game Development">Game Development</option>
+        <option value="Health & Wellness">Health & Wellness</option>
+        <option value="Crypto / Blockchain">Crypto / Blockchain</option>
+        <option value="Fashion">Fashion</option>
+      </select>
 
-    <label>DR Range:</label>
-    <input id="minDR" type="number" placeholder="Min" style="width: 60px;" />
-    <input id="maxDR" type="number" placeholder="Max" style="width: 60px;" />
+      <label>DR Range:</label>
+      <input id="minDR" type="number" placeholder="Min" style="width: 60px;" />
+      <input id="maxDR" type="number" placeholder="Max" style="width: 60px;" />
 
-    <button onclick="applyFilters()">Apply Filters</button>
-  </div>
+      <button onclick="applyFilters()">Apply Filters</button>
+    </div>
 
-  <div class="swipe-container">
-
+    <div class="swipe-container">
       <div id="card" class="card">
         <img id="logo" src="" alt="Business Logo" />
         <h2 id="bizName"></h2>
@@ -126,25 +127,9 @@ document.getElementById("app").innerHTML = `
 
   loadCard();
 }
-let filteredBusinesses = [...businesses];
-
-function applyFilters() {
-  const selectedSector = document.getElementById("filterSector").value;
-  const minDR = parseInt(document.getElementById("minDR").value) || 0;
-  const maxDR = parseInt(document.getElementById("maxDR").value) || 100;
-
-  filteredBusinesses = businesses.filter(biz => {
-    const matchSector = !selectedSector || biz.sector === selectedSector;
-    const matchDR = biz.dr >= minDR && biz.dr <= maxDR;
-    return matchSector && matchDR;
-  });
-
-  currentIndex = 0;
-  loadCard();
-}
 
 function loadCard() {
-  const biz = businesses[currentIndex];
+  const biz = filteredBusinesses[currentIndex];
   if (!biz) {
     document.getElementById("card").style.display = "none";
     document.getElementById("result").innerText = "🎉 No more businesses!";
@@ -157,26 +142,6 @@ function loadCard() {
   document.getElementById("bizDR").innerText = `DR/DA Score: ${biz.dr}`;
 }
 
-function skip() {
-  currentIndex++;
-  loadCard();
-}
-
-function connect() {
-  const boostDR = Math.floor(Math.random() * 10) + 5;
-  const boostTraffic = Math.floor(Math.random() * 20) + 10;
-
-  document.getElementById("result").innerHTML = `
-    🌟 Potential boost:<br>
-    +${boostDR}% DR | +${boostTraffic}% Traffic
-  `;
-
-  currentIndex++;
-  setTimeout(loadCard, 1500);
-}
-
-// Start the app
-showLogin();
 function skip() {
   const card = document.getElementById("card");
   card.classList.add("swipe-left");
@@ -204,4 +169,26 @@ function connect() {
     loadCard();
   }, 500);
 }
+
+function applyFilters() {
+  const selectedSector = document.getElementById("filterSector").value;
+  const minDR = parseInt(document.getElementById("minDR").value) || 0;
+  const maxDR = parseInt(document.getElementById("maxDR").value) || 100;
+
+  filteredBusinesses = businesses.filter(biz => {
+    const matchSector = !selectedSector || biz.sector === selectedSector;
+    const matchDR = biz.dr >= minDR && biz.dr <= maxDR;
+    return matchSector && matchDR;
+  });
+
+  currentIndex = 0;
+  loadCard();
+}
+
+// Start the app
+showLogin();
+
+
+
+     
 
