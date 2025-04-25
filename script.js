@@ -1,14 +1,27 @@
+// --- STATE ---
+let userProfile = {};
+let currentIndex = 0;
+let myLikes = [];
+let matches = [];
+let filteredBusinesses = [];
+
+const businesses = [
+  { logo: "https://via.placeholder.com/80", name: "PixelForge Games", sector: "Game Development", url: "https://pixelforge.games", dr: 42 },
+  { logo: "https://via.placeholder.com/80", name: "SaaSify Cloud", sector: "SaaS", url: "https://saasify.com", dr: 58 },
+  { logo: "https://via.placeholder.com/80", name: "Nutrify Health", sector: "Health & Wellness", url: "https://nutrify.health", dr: 37 },
+  { logo: "https://via.placeholder.com/80", name: "CoinVibe", sector: "Crypto / Blockchain", url: "https://coinvibe.io", dr: 66 },
+  { logo: "https://via.placeholder.com/80", name: "TrendSet Fashion", sector: "Fashion", url: "https://trendset.fashion", dr: 44 }
+];
+
 // --- LOGIN PAGE ---
 function showLogin() {
   document.getElementById("app").innerHTML = `
     <div class="login-container">
       <h1>Backlink Match 💘</h1>
       <p>Find your perfect SEO partner 🚀</p>
-
       <input id="username" type="text" placeholder="Username" />
       <input id="password" type="password" placeholder="Password" />
       <button onclick="fakeLogin()">Login</button>
-
       <p id="status"></p>
     </div>
   `;
@@ -31,10 +44,8 @@ function showProfileSetup() {
   document.getElementById("app").innerHTML = `
     <div class="profile-setup">
       <h1>🚀 Build Your Business Profile</h1>
-      
       <input id="bizName" type="text" placeholder="Business Name" />
       <input id="bizURL" type="url" placeholder="Website URL" />
-
       <label>Choose Business Sector:</label>
       <select id="bizSector">
         <option value="Technology">Technology</option>
@@ -53,11 +64,8 @@ function showProfileSetup() {
         <option value="Real Estate">Real Estate</option>
         <option value="Entertainment">Entertainment</option>
       </select>
-
       <input id="dr" type="number" placeholder="Your DR/DA score (optional)" />
-
       <button onclick="submitProfile()">Save Profile</button>
-
       <div id="profileResult"></div>
     </div>
   `;
@@ -71,22 +79,11 @@ function submitProfile() {
   const dr = drInput ? drInput : Math.floor(Math.random() * 30) + 20;
 
   userProfile = { name, url, sector, dr };
+  filteredBusinesses = [...businesses];
   goToSwiping();
 }
 
-// --- SWIPING ---
-const businesses = [
-  { logo: "https://via.placeholder.com/80", name: "PixelForge Games", sector: "Game Development", url: "https://pixelforge.games", dr: 42 },
-  { logo: "https://via.placeholder.com/80", name: "SaaSify Cloud", sector: "SaaS", url: "https://saasify.com", dr: 58 },
-  { logo: "https://via.placeholder.com/80", name: "Nutrify Health", sector: "Health & Wellness", url: "https://nutrify.health", dr: 37 },
-  { logo: "https://via.placeholder.com/80", name: "CoinVibe", sector: "Crypto / Blockchain", url: "https://coinvibe.io", dr: 66 },
-  { logo: "https://via.placeholder.com/80", name: "TrendSet Fashion", sector: "Fashion", url: "https://trendset.fashion", dr: 44 }
-];
-
-let userProfile = {};
-let currentIndex = 0;
-let filteredBusinesses = [...businesses];
-
+// --- SWIPING + FILTERING ---
 function goToSwiping() {
   document.getElementById("app").innerHTML = `
     <div class="filter-bar">
@@ -99,14 +96,11 @@ function goToSwiping() {
         <option value="Crypto / Blockchain">Crypto / Blockchain</option>
         <option value="Fashion">Fashion</option>
       </select>
-
       <label>DR Range:</label>
       <input id="minDR" type="number" placeholder="Min" style="width: 60px;" />
       <input id="maxDR" type="number" placeholder="Max" style="width: 60px;" />
-
       <button onclick="applyFilters()">Apply Filters</button>
     </div>
-
     <div class="swipe-container">
       <div id="card" class="card">
         <img id="logo" src="" alt="Business Logo" />
@@ -115,16 +109,28 @@ function goToSwiping() {
         <p id="bizURL"></p>
         <p id="bizDR"></p>
       </div>
-
       <div class="buttons">
         <button onclick="skip()">❌ Skip</button>
         <button onclick="connect()">✅ Connect</button>
       </div>
-
       <div id="result"></div>
     </div>
   `;
+  loadCard();
+}
 
+function applyFilters() {
+  const selectedSector = document.getElementById("filterSector").value;
+  const minDR = parseInt(document.getElementById("minDR").value) || 0;
+  const maxDR = parseInt(document.getElementById("maxDR").value) || 100;
+
+  filteredBusinesses = businesses.filter(biz => {
+    const matchSector = !selectedSector || biz.sector === selectedSector;
+    const matchDR = biz.dr >= minDR && biz.dr <= maxDR;
+    return matchSector && matchDR;
+  });
+
+  currentIndex = 0;
   loadCard();
 }
 
@@ -156,37 +162,76 @@ function connect() {
   const card = document.getElementById("card");
   const boostDR = Math.floor(Math.random() * 10) + 5;
   const boostTraffic = Math.floor(Math.random() * 20) + 10;
+  const biz = filteredBusinesses[currentIndex];
 
-  document.getElementById("result").innerHTML = `
-    🌟 Potential boost:<br>
-    +${boostDR}% DR | +${boostTraffic}% Traffic
+  myLikes.push(biz); // save like
+
+  const likesBack = Math.random() < 0.6;
+  if (likesBack) {
+    matches.push(biz);
+    showMatchScreen(biz);
+  } else {
+    document.getElementById("result").innerHTML = `
+      🌟 Potential boost:<br>
+      +${boostDR}% DR | +${boostTraffic}% Traffic
+    `;
+    card.classList.add("swipe-right");
+    setTimeout(() => {
+      currentIndex++;
+      card.classList.remove("swipe-right");
+      loadCard();
+    }, 500);
+  }
+}
+
+// --- MATCH + CHAT ---
+function showMatchScreen(biz) {
+  document.getElementById("app").innerHTML = `
+    <div class="match-screen">
+      <h1>🎉 It's a Match!</h1>
+      <img src="${biz.logo}" alt="Business Logo" style="width:100px;height:100px;border-radius:50%;">
+      <h2>${biz.name}</h2>
+      <p>Sector: ${biz.sector}</p>
+      <p>Ready to connect and swap backlinks? 🚀</p>
+      <button onclick="startChat('${biz.name}')">Start Chat 💬</button>
+      <button onclick="continueSwiping()">Keep Swiping ➡️</button>
+    </div>
   `;
+}
 
-  card.classList.add("swipe-right");
+function startChat(bizName) {
+  document.getElementById("app").innerHTML = `
+    <div class="chat-window">
+      <h1>💬 Chat with ${bizName}</h1>
+      <div id="chatMessages" style="height:200px;overflow-y:auto;margin-bottom:10px;border:1px solid #ccc;padding:10px;border-radius:10px;">
+        <p><strong>${bizName}:</strong> Hey there! Excited to swap links? 🚀</p>
+      </div>
+      <input id="chatInput" type="text" placeholder="Type your message..." />
+      <button onclick="sendMessage('${bizName}')">Send</button>
+    </div>
+  `;
+}
+
+function sendMessage(bizName) {
+  const input = document.getElementById("chatInput");
+  const message = input.value.trim();
+  if (message === "") return;
+  const chatBox = document.getElementById("chatMessages");
+  chatBox.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+  input.value = "";
   setTimeout(() => {
-    currentIndex++;
-    card.classList.remove("swipe-right");
-    loadCard();
-  }, 500);
+    chatBox.innerHTML += `<p><strong>${bizName}:</strong> Awesome! I'll link to you today 🚀</p>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }, 1000);
 }
 
-function applyFilters() {
-  const selectedSector = document.getElementById("filterSector").value;
-  const minDR = parseInt(document.getElementById("minDR").value) || 0;
-  const maxDR = parseInt(document.getElementById("maxDR").value) || 100;
-
-  filteredBusinesses = businesses.filter(biz => {
-    const matchSector = !selectedSector || biz.sector === selectedSector;
-    const matchDR = biz.dr >= minDR && biz.dr <= maxDR;
-    return matchSector && matchDR;
-  });
-
-  currentIndex = 0;
-  loadCard();
+function continueSwiping() {
+  goToSwiping();
 }
 
-// Start the app
+// --- INIT APP ---
 showLogin();
+
 
 
 
