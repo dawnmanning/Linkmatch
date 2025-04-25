@@ -1,51 +1,66 @@
+/* Page background */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(to bottom right, #dbeafe, #fef9c3);
-  height: 100vh;
+  background: linear-gradient(to bottom right, #7f00ff, #e100ff);
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #111;
 }
 
+/* App container */
 #app {
   width: 100%;
   max-width: 400px;
   padding: 20px;
 }
 
-input, select, button {
+/* Inputs and selects */
+input, select {
   width: 100%;
   margin: 10px 0;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
+  font-size: 1rem;
 }
 
+/* Buttons */
 button {
-  background-color: #3b82f6;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right, #7f00ff, #e100ff);
   color: white;
   cursor: pointer;
-  border: none;
-  font-size: 16px;
+  transition: transform 0.2s ease;
 }
 
 button:hover {
-  background-color: #2563eb;
+  transform: scale(1.05);
+  background: linear-gradient(to right, #6a00cc, #c900cc);
 }
 
+/* Card container */
 .swipe-container {
   text-align: center;
 }
 
+/* Card itself */
 .card {
   background: white;
   padding: 2rem;
   border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
   margin: 1rem auto;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 .card img {
@@ -56,53 +71,78 @@ button:hover {
   margin-bottom: 1rem;
 }
 
+/* Swipe buttons */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
 .buttons button {
-  width: 45%;
-  margin: 5px;
+  width: 48%;
 }
 
-#result {
-  margin-top: 1rem;
-  font-weight: bold;
-}
-
-.filter-bar {
-  background: #fff;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  text-align: center;
-}
-
-.filter-bar label {
-  margin: 0 5px;
-}
-
-.filter-bar input, .filter-bar select {
-  margin: 0 5px;
-}
-
-/* Swipe Animations */
+/* Swipe animations */
 .swipe-left {
   animation: swipeLeft 0.5s forwards;
 }
+
 .swipe-right {
   animation: swipeRight 0.5s forwards;
 }
 
 @keyframes swipeLeft {
   to {
-    transform: translateX(-500px);
+    transform: translateX(-400px) rotate(-20deg);
     opacity: 0;
   }
 }
+
 @keyframes swipeRight {
   to {
-    transform: translateX(500px);
+    transform: translateX(400px) rotate(20deg);
     opacity: 0;
   }
 }
+
+/* Chat window */
+.chat-window {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+#chatMessages {
+  background: #f9f9f9;
+  border-radius: 10px;
+}
+
+/* Filter section */
+.filter-bar {
+  background: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Match List */
+.match-list {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.match-card {
+  background: #fafafa;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 
 
 
