@@ -26,23 +26,29 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       padding: 3rem;
-      text-align: left;
+      text-align: center;
     }
 
     .logo {
-      font-size: 2.5rem;
-      font-weight: 800;
+      font-size: 3rem;
+      font-weight: 900;
       margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
+      color: white;
     }
 
-    header p {
-      font-size: 1.2rem;
-      max-width: 500px;
+    .tagline {
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    header p.description {
+      font-size: 1.1rem;
+      max-width: 600px;
       margin-bottom: 2rem;
+      line-height: 1.6;
     }
 
     .cta-button {
@@ -83,13 +89,13 @@
       margin-bottom: 2rem;
     }
 
-    .features, .logos, .testimonials {
+    .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 2rem;
     }
 
-    .feature-card, .testimonial, .logo-box {
+    .feature-card {
       background: #ffffff;
       padding: 2rem;
       border-radius: 20px;
@@ -98,7 +104,7 @@
       border: 1px solid #eee;
     }
 
-    .feature-card:hover, .testimonial:hover, .logo-box:hover {
+    .feature-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 30px 60px rgba(127, 0, 255, 0.25);
     }
@@ -148,8 +154,12 @@
 <body>
 
   <header>
-    <div class="logo">Linkmatch 🔗</div>
-    <p>Find the perfect SEO partner. Swipe. Match. Grow. 🚀</p>
+    <div class="logo">LinkMatch 🔗</div>
+    <div class="tagline">The Dating App for Backlinks</div>
+    <p class="description">
+      LinkMatch helps businesses boost their SEO by finding perfect backlink partners.
+      Swipe to match with companies that align by sector, domain rating, and growth potential.
+    </p>
     <a class="cta-button" href="app.html">Start Matching ➡️</a>
   </header>
 
@@ -175,28 +185,6 @@
 
   <section>
     <div class="section-inner">
-      <h2>As Featured In</h2>
-      <div class="logos">
-        <div class="logo-box">SEO Weekly</div>
-        <div class="logo-box">Startup Stack</div>
-        <div class="logo-box">Indie Hackers</div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-inner">
-      <h2>What Users Are Saying</h2>
-      <div class="testimonials">
-        <div class="testimonial">“We doubled DR in 2 months!” – SaaSify</div>
-        <div class="testimonial">“Linkmatch is the Tinder of backlinks!” – PixelForge</div>
-        <div class="testimonial">“So easy, even my intern uses it.” – CoinVibe</div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-inner">
       <h2>Get Launch Updates</h2>
       <div class="email-capture">
         <input type="email" placeholder="Your email...">
@@ -211,6 +199,7 @@
 
 </body>
 </html>
+
 
 
 
