@@ -11,9 +11,6 @@
       --purple2: #e100ff;
       --white: #ffffff;
       --dark: #111111;
-      --accent: #00d2ff;
-      --light-gray: #f7f7f7;
-      --menu-height: 60px;
     }
 
     body {
@@ -25,110 +22,101 @@
     }
 
     header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: var(--menu-height);
-      background: var(--purple1);
+      min-height: 100vh;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      padding: 0 20px;
-      z-index: 1000;
+      padding: 3rem;
+      text-align: center;
     }
 
     .logo {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: var(--white);
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      color: white;
     }
 
-    nav a {
-      color: var(--white);
-      text-decoration: none;
+    .tagline {
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    header p.description {
       font-size: 1.1rem;
-      margin-left: 20px;
-      text-transform: uppercase;
-      font-weight: bold;
-      transition: color 0.3s ease;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.6;
     }
 
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    header .cta-button {
-      background: var(--accent);
-      color: var(--white);
-      padding: 10px 30px;
-      border-radius: 50px;
+    .cta-button {
+      background: var(--white);
+      color: var(--purple1);
+      padding: 15px 40px;
+      font-size: 1.2rem;
       font-weight: bold;
-      font-size: 1.1rem;
       border: none;
+      border-radius: 50px;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
     }
 
-    header .cta-button:hover {
+    .cta-button:hover {
+      background: #f0f0f0;
       transform: scale(1.05);
-      background: var(--purple1);
     }
 
-    header + section {
-      padding-top: calc(var(--menu-height) + 30px);
-    }
-
-    .section {
+    section {
       background: var(--white);
       color: var(--dark);
-      padding: 5rem 2rem;
       text-align: center;
+      padding: 5rem 2rem;
+      width: 100%;
       box-sizing: border-box;
     }
 
     .section-inner {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
-    .section h2 {
-      font-size: 2.5rem;
+    section h2 {
+      font-size: 2.4rem;
       margin-bottom: 2rem;
     }
 
-    .feature-cards {
+    .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 2rem;
     }
 
     .feature-card {
-      background: var(--white);
-      padding: 3rem;
+      background: #ffffff;
+      padding: 2rem;
       border-radius: 20px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 20px 40px rgba(127, 0, 255, 0.15);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       border: 1px solid #eee;
     }
 
     .feature-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 30px 60px rgba(127, 0, 255, 0.25);
     }
 
     footer {
-      background: var(--purple1);
-      color: var(--white);
+      background: #2b004c;
+      color: white;
       text-align: center;
       padding: 2rem 1rem;
       font-size: 0.9rem;
       width: 100%;
       box-sizing: border-box;
-      position: relative;
-      bottom: 0;
     }
 
     .email-capture {
@@ -140,22 +128,20 @@
     }
 
     .email-capture input {
-      padding: 12px;
+      padding: 10px;
       border-radius: 25px;
       border: none;
       width: 280px;
-      font-size: 1rem;
     }
 
     .email-capture button {
-      background: var(--purple2);
-      color: var(--white);
-      padding: 12px 35px;
+      background: var(--purple1);
+      color: white;
+      padding: 10px 30px;
       border: none;
       border-radius: 25px;
-      font-weight: 600;
+      font-weight: bold;
       cursor: pointer;
-      font-size: 1rem;
     }
 
     @keyframes pulse {
@@ -168,19 +154,19 @@
 <body>
 
   <header>
-    <div class="logo">Linkmatch 🔗</div>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#how-it-works">How It Works</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <a href="#" class="cta-button">Start Matching ➡️</a>
+    <div class="logo">LinkMatch 🔗</div>
+    <div class="tagline">The Dating App for Backlinks</div>
+    <p class="description">
+      LinkMatch helps businesses boost their SEO by finding perfect backlink partners.
+      Swipe to match with companies that align by sector, domain rating, and growth potential.
+    </p>
+    <a class="cta-button" href="app.html">Start Matching ➡️</a>
   </header>
 
-  <section id="how-it-works" class="section">
+  <section>
     <div class="section-inner">
       <h2>How It Works</h2>
-      <div class="feature-cards">
+      <div class="features">
         <div class="feature-card">
           <h3>📄 Create Profile</h3>
           <p>Add your business and DR score to get started.</p>
@@ -197,7 +183,7 @@
     </div>
   </section>
 
-  <section id="contact" class="section">
+  <section>
     <div class="section-inner">
       <h2>Get Launch Updates</h2>
       <div class="email-capture">
@@ -213,7 +199,6 @@
 
 </body>
 </html>
-
 
 
 
