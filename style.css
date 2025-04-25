@@ -65,10 +65,28 @@ button:hover {
   margin-top: 1rem;
   font-weight: bold;
 }
+
+.filter-bar {
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.filter-bar label {
+  margin: 0 5px;
+}
+
+.filter-bar input, .filter-bar select {
+  margin: 0 5px;
+}
+
+/* Swipe Animations */
 .swipe-left {
   animation: swipeLeft 0.5s forwards;
 }
-
 .swipe-right {
   animation: swipeRight 0.5s forwards;
 }
@@ -79,24 +97,15 @@ button:hover {
     opacity: 0;
   }
 }
-.filter-bar {
-  background: #fff;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  text-align: center;
-}
-.filter-bar label {
-  margin: 0 5px;
-}
-.filter-bar input, .filter-bar select {
-  margin: 0 5px;
-}
-
 @keyframes swipeRight {
   to {
     transform: translateX(500px);
     opacity: 0;
   }
 }
+
+
+
+  
+
+
