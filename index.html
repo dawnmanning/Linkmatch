@@ -1,204 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Linkmatch 🔗 | Backlink Matching App</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    :root {
-      --purple1: #7f00ff;
-      --purple2: #e100ff;
-      --white: #ffffff;
-      --dark: #111111;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom right, var(--purple1), var(--purple2));
-      color: var(--white);
-      overflow-x: hidden;
-    }
-
-    header {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 3rem;
-      text-align: center;
-    }
-
-    .logo {
-      font-size: 3rem;
-      font-weight: 900;
-      margin-bottom: 1rem;
-      color: white;
-    }
-
-    .tagline {
-      font-size: 1.4rem;
-      font-weight: 500;
-      margin-bottom: 1rem;
-    }
-
-    header p.description {
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin-bottom: 2rem;
-      line-height: 1.6;
-    }
-
-    .cta-button {
-      background: var(--white);
-      color: var(--purple1);
-      padding: 15px 40px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      animation: pulse 2s infinite;
-    }
-
-    .cta-button:hover {
-      background: #f0f0f0;
-      transform: scale(1.05);
-    }
-
-    section {
-      background: var(--white);
-      color: var(--dark);
-      text-align: center;
-      padding: 5rem 2rem;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .section-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    section h2 {
-      font-size: 2.4rem;
-      margin-bottom: 2rem;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-    }
-
-    .feature-card {
-      background: #ffffff;
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(127, 0, 255, 0.15);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid #eee;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 30px 60px rgba(127, 0, 255, 0.25);
-    }
-
-    footer {
-      background: #2b004c;
-      color: white;
-      text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.9rem;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .email-capture {
-      margin-top: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .email-capture input {
-      padding: 10px;
-      border-radius: 25px;
-      border: none;
-      width: 280px;
-    }
-
-    .email-capture button {
-      background: var(--purple1);
-      color: white;
-      padding: 10px 30px;
-      border: none;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linkmatch 🔗 | Backlink Matching App</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+    <header>
+        <div class="logo">Linkmatch 🔗</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">How It Works</a>
+            <a href="#">Contact</a>
+        </nav>
+        <a href="#" class="cta-button">Start Matching ➡️</a>
+    </header>
 
-  <header>
-    <div class="logo">LinkMatch 🔗</div>
-    <div class="tagline">The Dating App for Backlinks</div>
-    <p class="description">
-      LinkMatch helps businesses boost their SEO by finding perfect backlink partners.
-      Swipe to match with companies that align by sector, domain rating, and growth potential.
-    </p>
-    <a class="cta-button" href="app.html">Start Matching ➡️</a>
-  </header>
-
-  <section>
-    <div class="section-inner">
-      <h2>How It Works</h2>
-      <div class="features">
-        <div class="feature-card">
-          <h3>📄 Create Profile</h3>
-          <p>Add your business and DR score to get started.</p>
+    <section id="how-it-works" class="section">
+        <div class="section-inner">
+            <h2>How It Works</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <h3>📄 Create Profile</h3>
+                    <p>Add your business and DR score to get started.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>❤️ Swipe & Match</h3>
+                    <p>Find businesses based on sector + DR relevance.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔗 Link Swap</h3>
+                    <p>Connect + share backlinks to grow authority fast.</p>
+                </div>
+            </div>
         </div>
-        <div class="feature-card">
-          <h3>❤️ Swipe & Match</h3>
-          <p>Find businesses based on sector + DR relevance.</p>
-        </div>
-        <div class="feature-card">
-          <h3>🔗 Link Swap</h3>
-          <p>Connect + share backlinks to grow authority fast.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section>
-    <div class="section-inner">
-      <h2>Get Launch Updates</h2>
-      <div class="email-capture">
-        <input type="email" placeholder="Your email...">
-        <button onclick="alert('Thanks! You\'re on the list 🎉')">Notify Me</button>
-      </div>
-    </div>
-  </section>
+    <section id="contact" class="section">
+        <div class="section-inner">
+            <h2>Get Launch Updates</h2>
+            <div class="email-capture">
+                <input type="email" placeholder="Your email...">
+                <button onclick="alert('Thanks! You\'re on the list 🎉')">Notify Me</button>
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    &copy; 2025 <strong>Linkmatch</strong>. All rights reserved.
-  </footer>
+    <footer>
+        &copy; 2025 <strong>Linkmatch</strong>. All rights reserved.
+    </footer>
 
 </body>
+
 </html>
+
 
 
 
