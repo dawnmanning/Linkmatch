@@ -86,9 +86,27 @@ const businesses = [
 let userProfile = {};
 let currentIndex = 0;
 
-function goToSwiping() {
-  document.getElementById("app").innerHTML = `
-    <div class="swipe-container">
+document.getElementById("app").innerHTML = `
+  <div class="filter-bar">
+    <label>Sector:</label>
+    <select id="filterSector">
+      <option value="">All</option>
+      <option value="SaaS">SaaS</option>
+      <option value="Game Development">Game Development</option>
+      <option value="Health & Wellness">Health & Wellness</option>
+      <option value="Crypto / Blockchain">Crypto / Blockchain</option>
+      <option value="Fashion">Fashion</option>
+    </select>
+
+    <label>DR Range:</label>
+    <input id="minDR" type="number" placeholder="Min" style="width: 60px;" />
+    <input id="maxDR" type="number" placeholder="Max" style="width: 60px;" />
+
+    <button onclick="applyFilters()">Apply Filters</button>
+  </div>
+
+  <div class="swipe-container">
+
       <div id="card" class="card">
         <img id="logo" src="" alt="Business Logo" />
         <h2 id="bizName"></h2>
