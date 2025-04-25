@@ -126,6 +126,22 @@ document.getElementById("app").innerHTML = `
 
   loadCard();
 }
+let filteredBusinesses = [...businesses];
+
+function applyFilters() {
+  const selectedSector = document.getElementById("filterSector").value;
+  const minDR = parseInt(document.getElementById("minDR").value) || 0;
+  const maxDR = parseInt(document.getElementById("maxDR").value) || 100;
+
+  filteredBusinesses = businesses.filter(biz => {
+    const matchSector = !selectedSector || biz.sector === selectedSector;
+    const matchDR = biz.dr >= minDR && biz.dr <= maxDR;
+    return matchSector && matchDR;
+  });
+
+  currentIndex = 0;
+  loadCard();
+}
 
 function loadCard() {
   const biz = businesses[currentIndex];
