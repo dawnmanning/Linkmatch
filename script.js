@@ -268,11 +268,3 @@ function showMatches() {
 
 // --- INIT APP ---
 showLogin();
-
-
-
-
-
-
-     
-
