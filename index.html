@@ -69,6 +69,13 @@
       color: var(--dark);
       text-align: center;
       padding: 5rem 2rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
     section h2 {
@@ -80,8 +87,6 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 2rem;
-      max-width: 1100px;
-      margin: auto;
     }
 
     .feature-card, .testimonial, .logo-box {
@@ -149,46 +154,54 @@
   </header>
 
   <section>
-    <h2>How It Works</h2>
-    <div class="features">
-      <div class="feature-card">
-        <h3>📄 Create Profile</h3>
-        <p>Add your business and DR score to get started.</p>
-      </div>
-      <div class="feature-card">
-        <h3>❤️ Swipe & Match</h3>
-        <p>Find businesses based on sector + DR relevance.</p>
-      </div>
-      <div class="feature-card">
-        <h3>🔗 Link Swap</h3>
-        <p>Connect + share backlinks to grow authority fast.</p>
+    <div class="section-inner">
+      <h2>How It Works</h2>
+      <div class="features">
+        <div class="feature-card">
+          <h3>📄 Create Profile</h3>
+          <p>Add your business and DR score to get started.</p>
+        </div>
+        <div class="feature-card">
+          <h3>❤️ Swipe & Match</h3>
+          <p>Find businesses based on sector + DR relevance.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🔗 Link Swap</h3>
+          <p>Connect + share backlinks to grow authority fast.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section>
-    <h2>As Featured In</h2>
-    <div class="logos">
-      <div class="logo-box">SEO Weekly</div>
-      <div class="logo-box">Startup Stack</div>
-      <div class="logo-box">Indie Hackers</div>
+    <div class="section-inner">
+      <h2>As Featured In</h2>
+      <div class="logos">
+        <div class="logo-box">SEO Weekly</div>
+        <div class="logo-box">Startup Stack</div>
+        <div class="logo-box">Indie Hackers</div>
+      </div>
     </div>
   </section>
 
   <section>
-    <h2>What Users Are Saying</h2>
-    <div class="testimonials">
-      <div class="testimonial">“We doubled DR in 2 months!” – SaaSify</div>
-      <div class="testimonial">“Linkmatch is the Tinder of backlinks!” – PixelForge</div>
-      <div class="testimonial">“So easy, even my intern uses it.” – CoinVibe</div>
+    <div class="section-inner">
+      <h2>What Users Are Saying</h2>
+      <div class="testimonials">
+        <div class="testimonial">“We doubled DR in 2 months!” – SaaSify</div>
+        <div class="testimonial">“Linkmatch is the Tinder of backlinks!” – PixelForge</div>
+        <div class="testimonial">“So easy, even my intern uses it.” – CoinVibe</div>
+      </div>
     </div>
   </section>
 
   <section>
-    <h2>Get Launch Updates</h2>
-    <div class="email-capture">
-      <input type="email" placeholder="Your email...">
-      <button onclick="alert('Thanks! You\'re on the list 🎉')">Notify Me</button>
+    <div class="section-inner">
+      <h2>Get Launch Updates</h2>
+      <div class="email-capture">
+        <input type="email" placeholder="Your email...">
+        <button onclick="alert('Thanks! You\'re on the list 🎉')">Notify Me</button>
+      </div>
     </div>
   </section>
 
