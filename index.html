@@ -2,16 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Linkmatch 🔗 | Backlink Matching App</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     :root {
       --purple1: #7f00ff;
       --purple2: #e100ff;
-      --card-bg: #ffffff;
-      --text-dark: #111;
-      --white: #fff;
+      --white: #ffffff;
+      --dark: #111111;
     }
 
     body {
@@ -30,7 +29,6 @@
       align-items: flex-start;
       padding: 3rem;
       text-align: left;
-      background: linear-gradient(135deg, var(--purple1), var(--purple2));
     }
 
     .logo {
@@ -39,11 +37,6 @@
       margin-bottom: 1rem;
       display: flex;
       align-items: center;
-    }
-
-    .logo span {
-      font-size: 2rem;
-      margin-left: 0.5rem;
     }
 
     header p {
@@ -73,9 +66,9 @@
 
     section {
       background: var(--white);
-      color: var(--text-dark);
+      color: var(--dark);
       text-align: center;
-      padding: 5rem 2rem 4rem;
+      padding: 5rem 2rem;
     }
 
     section h2 {
@@ -83,7 +76,7 @@
       margin-bottom: 2rem;
     }
 
-    .features {
+    .features, .logos, .testimonials {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 2rem;
@@ -91,8 +84,8 @@
       margin: auto;
     }
 
-    .feature-card {
-      background: var(--card-bg);
+    .feature-card, .testimonial, .logo-box {
+      background: #ffffff;
       padding: 2rem;
       border-radius: 20px;
       box-shadow: 0 20px 40px rgba(127, 0, 255, 0.15);
@@ -100,33 +93,45 @@
       border: 1px solid #eee;
     }
 
-    .feature-card:hover {
+    .feature-card:hover, .testimonial:hover {
       transform: translateY(-10px);
       box-shadow: 0 30px 60px rgba(127, 0, 255, 0.25);
     }
 
-    .feature-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
+    footer {
+      background: #2b004c;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    .feature-card p {
-      font-size: 1rem;
-      color: #444;
+    .email-capture {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
     }
 
-   footer {
-  background: #2b004c;
-  color: white;
-  text-align: center;
-  padding: 2rem 1rem;
-  font-size: 0.9rem;
-  width: 100%;
-  box-sizing: border-box;
-  margin-top: 0;
-  position: relative;
-}
+    .email-capture input {
+      padding: 10px;
+      border-radius: 25px;
+      border: none;
+      width: 280px;
+    }
 
+    .email-capture button {
+      background: var(--purple1);
+      color: white;
+      padding: 10px 30px;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
     @keyframes pulse {
       0% { transform: scale(1); }
@@ -138,10 +143,8 @@
 <body>
 
   <header>
-    <div class="logo">
-      Linkmatch <span>🔗</span>
-    </div>
-    <p>Find the perfect SEO partner for your website. Swipe, match, and boost your rankings together. 🚀</p>
+    <div class="logo">Linkmatch 🔗</div>
+    <p>Find the perfect SEO partner. Swipe. Match. Grow. 🚀</p>
     <a class="cta-button" href="app.html">Start Matching ➡️</a>
   </header>
 
@@ -150,16 +153,42 @@
     <div class="features">
       <div class="feature-card">
         <h3>📄 Create Profile</h3>
-        <p>Tell us about your business and your DR score. Show off your brand!</p>
+        <p>Add your business and DR score to get started.</p>
       </div>
       <div class="feature-card">
         <h3>❤️ Swipe & Match</h3>
-        <p>Browse businesses by industry, DR, and more. Swipe right to connect.</p>
+        <p>Find businesses based on sector + DR relevance.</p>
       </div>
       <div class="feature-card">
         <h3>🔗 Link Swap</h3>
-        <p>Chat directly and swap powerful backlinks to grow your authority.</p>
+        <p>Connect + share backlinks to grow authority fast.</p>
       </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>As Featured In</h2>
+    <div class="logos">
+      <div class="logo-box">SEO Weekly</div>
+      <div class="logo-box">Startup Stack</div>
+      <div class="logo-box">Indie Hackers</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What Users Are Saying</h2>
+    <div class="testimonials">
+      <div class="testimonial">“We doubled DR in 2 months!” – SaaSify</div>
+      <div class="testimonial">“Linkmatch is the Tinder of backlinks!” – PixelForge</div>
+      <div class="testimonial">“So easy, even my intern uses it.” – CoinVibe</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Get Launch Updates</h2>
+    <div class="email-capture">
+      <input type="email" placeholder="Your email...">
+      <button onclick="alert('Thanks! You\'re on the list 🎉')">Notify Me</button>
     </div>
   </section>
 
@@ -169,4 +198,5 @@
 
 </body>
 </html>
+
 
