@@ -5,12 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Backlink Match 💘</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase Libraries -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"></script>
+
+  <!-- Your Firebase Config -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC4ofLHWbSZ2h1h2z2O51gIwH2oX4AdyB0",
+      authDomain: "link-match-4o06t3.firebaseapp.com",
+      projectId: "link-match-4o06t3",
+      storageBucket: "link-match-4o06t3.appspot.com",
+      messagingSenderId: "364394132843",
+      appId: "1:364394132843:web:26667fb5815120a82cc82e"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
 </head>
 <body>
 
 <div id="app"></div>
 
+<!-- Your App Logic -->
 <script src="script.js"></script>
+
 </body>
 </html>
 
