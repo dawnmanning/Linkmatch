@@ -19,20 +19,7 @@ const businesses = [
   { logo: "https://via.placeholder.com/80", name: "TrendSet Fashion", sector: "Fashion", url: "https://trendset.fashion", dr: 44 }
 ];
 
-// --- FUNCTIONS ---
-
-function showLogin() {
-  document.getElementById("app").innerHTML = `
-    <div class="login-container">
-      <h1>Backlink Match 💘</h1>
-      <p>Find your perfect SEO partner 🚀</p>
-      <input id="email" type="email" placeholder="Email" />
-      <input id="password" type="password" placeholder="Password" />
-      <button onclick="firebaseLogin()">Login / Signup</button>
-      <p id="status"></p>
-    </div>
-  `;
-}
+// --- LOGIN + SIGNUP ---
 
 function firebaseLogin() {
   const email = document.getElementById("email").value;
@@ -46,16 +33,22 @@ function firebaseLogin() {
     })
     .catch(error => {
       if (error.code === 'auth/user-not-found') {
+        // If user doesn't exist, create new one
         auth.createUserWithEmailAndPassword(email, password)
           .then(userCredential => {
             currentUser = userCredential.user;
             createNewUserProfile();
+          })
+          .catch(err => {
+            document.getElementById("status").innerText = `Error: ${err.message}`;
           });
       } else {
         document.getElementById("status").innerText = `Error: ${error.message}`;
       }
     });
 }
+
+// --- PROFILE SETUP ---
 
 function createNewUserProfile() {
   userProfile = {
@@ -93,7 +86,20 @@ function saveUserProfile() {
   db.collection('users').doc(currentUser.uid).update(userProfile);
 }
 
-// --- PROFILE SETUP ---
+// --- UI SCREENS ---
+
+function showLogin() {
+  document.getElementById("app").innerHTML = `
+    <div class="login-container">
+      <h1>Backlink Match 💘</h1>
+      <p>Find your perfect SEO partner 🚀</p>
+      <input id="email" type="email" placeholder="Email" />
+      <input id="password" type="password" placeholder="Password" />
+      <button onclick="firebaseLogin()">Login / Signup</button>
+      <p id="status"></p>
+    </div>
+  `;
+}
 
 function showProfileSetup() {
   document.getElementById("app").innerHTML = `
@@ -129,7 +135,7 @@ function submitProfile() {
   goToSwiping();
 }
 
-// --- SWIPING + FILTERING ---
+// --- SWIPE SCREEN ---
 
 function goToSwiping() {
   document.getElementById("app").innerHTML = `
@@ -280,7 +286,7 @@ function saveMatches() {
   db.collection('users').doc(currentUser.uid).update({ matches });
 }
 
-// --- SETTINGS + LOGOUT ---
+// --- SETTINGS ---
 
 function showMatches() {
   if (matches.length === 0) {
@@ -329,12 +335,12 @@ function logout() {
   });
 }
 
-// --- INIT ON PAGE LOAD ---
+// --- INIT ---
+
 window.onload = function() {
   showLogin();
-  window.firebaseLogin = firebaseLogin; // <-- THIS LINE IS SUPER IMPORTANT
+  window.firebaseLogin = firebaseLogin;
 };
-
 
 
 
