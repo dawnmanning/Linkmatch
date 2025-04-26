@@ -1,6 +1,4 @@
 // --- FIREBASE INIT ---
-window.onload = function() {
-
 const auth = firebase.auth();
 const db = firebase.firestore();
 
@@ -21,7 +19,7 @@ const businesses = [
   { logo: "https://via.placeholder.com/80", name: "TrendSet Fashion", sector: "Fashion", url: "https://trendset.fashion", dr: 44 }
 ];
 
-// --- LOGIN/REGISTER ---
+// --- FUNCTIONS ---
 
 function showLogin() {
   document.getElementById("app").innerHTML = `
@@ -59,8 +57,6 @@ function firebaseLogin() {
     });
 }
 
-// --- PROFILE SETUP ---
-
 function createNewUserProfile() {
   userProfile = {
     name: "",
@@ -69,7 +65,6 @@ function createNewUserProfile() {
     dr: 0,
     matches: []
   };
-
   db.collection('users').doc(currentUser.uid).set(userProfile)
     .then(() => {
       showProfileSetup();
@@ -98,7 +93,7 @@ function saveUserProfile() {
   db.collection('users').doc(currentUser.uid).update(userProfile);
 }
 
-// --- BUILD PROFILE UI ---
+// --- PROFILE SETUP ---
 
 function showProfileSetup() {
   document.getElementById("app").innerHTML = `
@@ -334,10 +329,12 @@ function logout() {
   });
 }
 
-// --- INIT ---
-showLogin();
+// --- INIT ON PAGE LOAD ---
+window.onload = function() {
+  showLogin();
+  window.firebaseLogin = firebaseLogin; // <-- THIS LINE IS SUPER IMPORTANT
+};
 
-}; // Close window.onload here
 
 
 
