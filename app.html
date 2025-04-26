@@ -6,12 +6,12 @@
   <title>Backlink Match 💘</title>
   <link rel="stylesheet" href="style.css">
 
-  <!-- Firebase Libraries -->
-  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"></script>
+  <!-- Firebase (correct browser versions) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
-  <!-- Firebase Config -->
+  <!-- Your Firebase Config -->
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyC4ofLHWbSZ2h1h2z2O51gIwH2oX4AdyB0",
@@ -23,13 +23,12 @@
     };
     firebase.initializeApp(firebaseConfig);
   </script>
-
 </head>
+
 <body>
 
 <div id="app"></div>
 
-<!-- Your Script MUST load after Firebase -->
 <script src="script.js"></script>
 
 </body>
