@@ -1,10 +1,16 @@
+// --- FIREBASE INIT ---
+const auth = firebase.auth();
+const db = firebase.firestore();
+
 // --- STATE ---
 let userProfile = {};
 let currentIndex = 0;
 let myLikes = [];
 let matches = [];
 let filteredBusinesses = [];
+let currentUser = null;
 
+// Dummy businesses
 const businesses = [
   { logo: "https://via.placeholder.com/80", name: "PixelForge Games", sector: "Game Development", url: "https://pixelforge.games", dr: 42 },
   { logo: "https://via.placeholder.com/80", name: "SaaSify Cloud", sector: "SaaS", url: "https://saasify.com", dr: 58 },
@@ -13,33 +19,86 @@ const businesses = [
   { logo: "https://via.placeholder.com/80", name: "TrendSet Fashion", sector: "Fashion", url: "https://trendset.fashion", dr: 44 }
 ];
 
-// --- LOGIN ---
+// --- LOGIN/REGISTER ---
+
 function showLogin() {
   document.getElementById("app").innerHTML = `
     <div class="login-container">
       <h1>Backlink Match 💘</h1>
       <p>Find your perfect SEO partner 🚀</p>
-      <input id="username" type="text" placeholder="Username" />
+      <input id="email" type="email" placeholder="Email" />
       <input id="password" type="password" placeholder="Password" />
-      <button onclick="fakeLogin()">Login</button>
+      <button onclick="firebaseLogin()">Login / Signup</button>
       <p id="status"></p>
     </div>
   `;
 }
 
-function fakeLogin() {
-  const username = document.getElementById("username").value;
-  if (username.trim() === "") {
-    document.getElementById("status").innerText = "Please enter a username.";
-    return;
-  }
-  document.getElementById("status").innerText = `Welcome, ${username}! Redirecting...`;
-  setTimeout(() => {
-    showProfileSetup();
-  }, 1000);
+function firebaseLogin() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  auth.signInWithEmailAndPassword(email, password)
+    .then(userCredential => {
+      currentUser = userCredential.user;
+      document.getElementById("status").innerText = `Welcome, ${currentUser.email}!`;
+      loadUserProfile();
+    })
+    .catch(error => {
+      if (error.code === 'auth/user-not-found') {
+        // If no user, create a new one
+        auth.createUserWithEmailAndPassword(email, password)
+          .then(userCredential => {
+            currentUser = userCredential.user;
+            createNewUserProfile();
+          });
+      } else {
+        document.getElementById("status").innerText = `Error: ${error.message}`;
+      }
+    });
 }
 
 // --- PROFILE SETUP ---
+
+function createNewUserProfile() {
+  userProfile = {
+    name: "",
+    url: "",
+    sector: "",
+    dr: 0,
+    matches: []
+  };
+
+  db.collection('users').doc(currentUser.uid).set(userProfile)
+    .then(() => {
+      showProfileSetup();
+    });
+}
+
+function loadUserProfile() {
+  db.collection('users').doc(currentUser.uid).get()
+    .then(doc => {
+      if (doc.exists) {
+        userProfile = doc.data();
+        matches = userProfile.matches || [];
+        filteredBusinesses = [...businesses];
+        if (userProfile.name) {
+          goToSwiping();
+        } else {
+          showProfileSetup();
+        }
+      } else {
+        createNewUserProfile();
+      }
+    });
+}
+
+function saveUserProfile() {
+  db.collection('users').doc(currentUser.uid).update(userProfile);
+}
+
+// --- BUILD PROFILE UI ---
+
 function showProfileSetup() {
   document.getElementById("app").innerHTML = `
     <div class="profile-setup">
@@ -66,14 +125,16 @@ function submitProfile() {
   const url = document.getElementById("bizURL").value;
   const sector = document.getElementById("bizSector").value;
   const drInput = document.getElementById("dr").value;
-  const dr = drInput ? drInput : Math.floor(Math.random() * 30) + 20;
+  const dr = drInput ? parseInt(drInput) : Math.floor(Math.random() * 30) + 20;
 
-  userProfile = { name, url, sector, dr };
+  userProfile = { name, url, sector, dr, matches };
+  saveUserProfile();
   filteredBusinesses = [...businesses];
   goToSwiping();
 }
 
 // --- SWIPING + FILTERING ---
+
 function goToSwiping() {
   document.getElementById("app").innerHTML = `
     <div class="filter-bar">
@@ -171,6 +232,7 @@ function connect() {
 }
 
 // --- MATCH + CHAT ---
+
 function showMatchScreen(biz) {
   const boostDR = Math.floor(Math.random() * 15) + 5;
   const boostTraffic = Math.floor(Math.random() * 300) + 100;
@@ -181,7 +243,6 @@ function showMatchScreen(biz) {
       <img src="${biz.logo}" alt="Business Logo" style="width:100px;height:100px;border-radius:50%;">
       <h2>${biz.name}</h2>
       <p>Sector: ${biz.sector}</p>
-      <p>Ready to connect and swap backlinks? 🚀</p>
       <p><strong>🔧 Estimated Boost:</strong><br> +${boostDR}% DR | +${boostTraffic} visits/mo</p>
       <button onclick="startChat('${biz.name}')">Start Chat 💬</button>
       <button onclick="continueSwiping()">Keep Swiping ➡️</button>
@@ -198,7 +259,6 @@ function startChat(bizName) {
       </div>
       <input id="chatInput" type="text" placeholder="Type your message..." style="width:100%; padding:10px; border-radius:10px; border:none; margin-bottom:10px;" />
       <button onclick="sendMessage('${bizName}')">Send</button>
-      <button onclick="sendLinkRequest()">🔗 Send Link Request</button>
       <button onclick="showMatches()" style="margin-top: 10px;">⬅️ Back to Matches</button>
     </div>
   `;
@@ -217,15 +277,15 @@ function sendMessage(bizName) {
   }, 1000);
 }
 
-function sendLinkRequest() {
-  alert("🔗 Link Request Sent!");
+// --- SAVE MATCHES ---
+
+function saveMatches() {
+  userProfile.matches = matches;
+  db.collection('users').doc(currentUser.uid).update({ matches });
 }
 
-function continueSwiping() {
-  goToSwiping();
-}
+// --- SETTINGS + LOGOUT ---
 
-// --- MATCH LIST & SETTINGS ---
 function showMatches() {
   if (matches.length === 0) {
     document.getElementById("app").innerHTML = `
@@ -258,40 +318,23 @@ function showSettings() {
     <div class="settings">
       <h1>⚙️ Settings</h1>
       <button onclick="showProfileSetup()">Edit Profile</button>
-      <button onclick="clearMatches()">Clear Matches</button>
       <button onclick="logout()">Log Out</button>
     </div>
   `;
 }
 
-// --- STORAGE ---
-function saveMatches() {
-  localStorage.setItem('savedMatches', JSON.stringify(matches));
-}
-
-function loadSavedMatches() {
-  const saved = localStorage.getItem('savedMatches');
-  if (saved) matches = JSON.parse(saved);
-}
-
-function clearMatches() {
-  localStorage.removeItem('savedMatches');
-  matches = [];
-  alert("✅ Matches cleared!");
-  showSettings();
-}
-
 function logout() {
-  userProfile = {};
-  currentIndex = 0;
-  myLikes = [];
-  matches = [];
-  localStorage.clear();
-  showLogin();
+  auth.signOut().then(() => {
+    currentUser = null;
+    matches = [];
+    userProfile = {};
+    currentIndex = 0;
+    showLogin();
+  });
 }
 
 // --- INIT ---
-loadSavedMatches();
 showLogin();
+
 
 
