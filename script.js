@@ -1,4 +1,6 @@
 // --- FIREBASE INIT ---
+window.onload = function() {
+
 const auth = firebase.auth();
 const db = firebase.firestore();
 
@@ -46,7 +48,6 @@ function firebaseLogin() {
     })
     .catch(error => {
       if (error.code === 'auth/user-not-found') {
-        // If no user, create a new one
         auth.createUserWithEmailAndPassword(email, password)
           .then(userCredential => {
             currentUser = userCredential.user;
@@ -335,6 +336,9 @@ function logout() {
 
 // --- INIT ---
 showLogin();
+
+}; // Close window.onload here
+
 
 
 
