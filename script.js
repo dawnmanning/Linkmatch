@@ -26,15 +26,13 @@ function showProfileSetup() {
         <option value="Crypto / Blockchain">Crypto / Blockchain</option>
       </select>
       <input id="dr" type="number" placeholder="Your DR/DA score" />
-      <button onclick="startSession(event)">Save & Start Matching</button>
+      <button onclick="startSession()">Save & Start Matching</button>
     </div>
   `;
 }
 
-// --- Save Profile to Airtable via Proxy ---
-function startSession(event) {
-  if (event) event.preventDefault();
-
+// --- Save Profile ---
+function startSession() {
   const name = document.getElementById("bizName").value;
   const url = document.getElementById("bizURL").value;
   const sector = document.getElementById("bizSector").value;
@@ -57,113 +55,30 @@ function startSession(event) {
   })
   .then(response => response.json())
   .then(data => {
-    console.log('Profile created:', data);
+    console.log('Profile saved:', data);
     currentUser = data;
     loadBusinesses();
   })
   .catch(error => {
-    console.error('Error creating profile:', error);
+    console.error('Error saving profile:', error);
     alert('Failed to create profile.');
   });
 }
 
-// --- Load Other Businesses ---
+// --- Load Businesses (Dummy for now) ---
 function loadBusinesses() {
-  fetch(`${proxyBaseUrl}/${businessesTable}`, {
-    headers: { 'Content-Type': 'application/json' }
-  })
-  .then(response => response.json())
-  .then(data => {
-    allBusinesses = data.records.filter(biz => biz.id !== currentUser.id);
-    console.log('Businesses loaded:', allBusinesses);
-    goToSwiping();
-  })
-  .catch(error => {
-    console.error('Error loading businesses:', error);
-  });
-}
-
-// --- Swiping Interface ---
-function goToSwiping() {
+  console.log('Businesses loaded! (Simulated)');
   document.getElementById("app").innerHTML = `
     <div class="swipe-container">
-      <div id="card" class="card">
-        <h2 id="bizName"></h2>
-        <p id="bizSector"></p>
-        <p id="bizURL"></p>
-      </div>
-      <div class="buttons">
-        <button onclick="skip()">❌ Skip</button>
-        <button onclick="connect()">✅ Connect</button>
-      </div>
-      <div id="result"></div>
-      <button onclick="showMatches()">📂 View Matches</button>
+      <h1>🎉 Profile Created Successfully!</h1>
+      <p>Start swiping soon...</p>
     </div>
   `;
-  loadCard();
 }
 
-function loadCard() {
-  const biz = allBusinesses[currentIndex];
-  if (!biz) {
-    document.getElementById("card").style.display = "none";
-    document.getElementById("result").innerText = "🎉 No more businesses!";
-    return;
-  }
-  document.getElementById("bizName").innerText = biz.fields["Business Name"] || "Unknown";
-  document.getElementById("bizSector").innerText = `Sector: ${biz.fields["Industry Category"] || "Unknown"}`;
-  document.getElementById("bizURL").innerHTML = `<a href="${biz.fields["Website URL"]}" target="_blank">${biz.fields["Website URL"]}</a>`;
-}
-
-function skip() {
-  const card = document.getElementById("card");
-  card.classList.add("swipe-left");
-  setTimeout(() => {
-    currentIndex++;
-    card.classList.remove("swipe-left");
-    loadCard();
-  }, 500);
-}
-
-function connect() {
-  const biz = allBusinesses[currentIndex];
-
-  fetch(`${proxyBaseUrl}/${matchesTable}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      fields: {
-        "Business A": [currentUser.id],
-        "Business B": [biz.id],
-        "Match Status": "Pending",
-        "Match Date": new Date().toISOString()
-      }
-    })
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Match saved:', data);
-    document.getElementById("result").innerText = `💘 Matched with ${biz.fields["Business Name"]}!`;
-    currentIndex++;
-    loadCard();
-  })
-  .catch(error => {
-    console.error('Error saving match:', error);
-  });
-}
-
-function showMatches() {
-  document.getElementById("app").innerHTML = `
-    <div><h1>📂 My Matches (coming soon!)</h1><button onclick="goToSwiping()">⬅️ Back</button></div>
-  `;
-}
-
-// --- Init ---
-window.onload = function() {
-  showProfileSetup();
-};
-// Expose functions globally
+// --- Make Functions Available Globally ---
 window.showProfileSetup = showProfileSetup;
 window.startSession = startSession;
+
 
 
