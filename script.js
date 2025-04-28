@@ -1,6 +1,5 @@
-// --- Airtable Setup ---
-const airtableApiKey = 'patU3giw0StF52OLm.a7a6a1351b37a29899ef6cc4f7c43520f480bb0dfbab87719c1b5918b9edc460';
-const airtableBaseId = 'appNn1Tpagu4dWwuJ';
+// --- Airtable via Vercel Proxy Setup ---
+const proxyBaseUrl = 'https://linkmatch-proxy-dawnmanning.vercel.app/api/proxy/v0';
 const businessesTable = 'Business directory';
 const matchesTable = 'Industry matches';
 const chatsTable = 'Communication';
@@ -10,7 +9,7 @@ let currentUser = null;
 let allBusinesses = [];
 let currentIndex = 0;
 
-// --- Profile Setup Screen ---
+// --- Profile Setup ---
 function showProfileSetup() {
   document.getElementById("app").innerHTML = `
     <div class="profile-setup">
@@ -32,7 +31,7 @@ function showProfileSetup() {
   `;
 }
 
-// --- Start Session ---
+// --- Save Profile to Airtable via Proxy ---
 function startSession() {
   const name = document.getElementById("bizName").value;
   const url = document.getElementById("bizURL").value;
@@ -44,17 +43,14 @@ function startSession() {
     "Website URL": url,
     "Industry Category": sector,
     "Contact Email": `${name.replace(/\s+/g, '').toLowerCase()}@example.com`,
-    "Description": "Created by LinkMatch",
+    "Description": "Created via LinkMatch",
     "Logo/Image": [],
     "DR": dr
   };
 
-  fetch(`https://api.airtable.com/v0/${airtableBaseId}/${businessesTable}`, {
+  fetch(`${proxyBaseUrl}/${businessesTable}`, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${airtableApiKey}`,
-      'Content-Type': 'application/json'
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ fields: profileData })
   })
   .then(response => response.json())
@@ -69,12 +65,10 @@ function startSession() {
   });
 }
 
-// --- Load Businesses ---
+// --- Load Other Businesses ---
 function loadBusinesses() {
-  fetch(`https://api.airtable.com/v0/${airtableBaseId}/${businessesTable}`, {
-    headers: {
-      'Authorization': `Bearer ${airtableApiKey}`,
-    }
+  fetch(`${proxyBaseUrl}/${businessesTable}`, {
+    headers: { 'Content-Type': 'application/json' }
   })
   .then(response => response.json())
   .then(data => {
@@ -87,7 +81,7 @@ function loadBusinesses() {
   });
 }
 
-// --- Swiping ---
+// --- Swiping Interface ---
 function goToSwiping() {
   document.getElementById("app").innerHTML = `
     <div class="swipe-container">
@@ -96,12 +90,10 @@ function goToSwiping() {
         <p id="bizSector"></p>
         <p id="bizURL"></p>
       </div>
-
       <div class="buttons">
         <button onclick="skip()">❌ Skip</button>
         <button onclick="connect()">✅ Connect</button>
       </div>
-
       <div id="result"></div>
       <button onclick="showMatches()">📂 View Matches</button>
     </div>
@@ -132,19 +124,15 @@ function skip() {
 }
 
 function connect() {
-  const card = document.getElementById("card");
-  const matchedBiz = allBusinesses[currentIndex];
+  const biz = allBusinesses[currentIndex];
 
-  fetch(`https://api.airtable.com/v0/${airtableBaseId}/${matchesTable}`, {
+  fetch(`${proxyBaseUrl}/${matchesTable}`, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${airtableApiKey}`,
-      'Content-Type': 'application/json'
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       fields: {
         "Business A": [currentUser.id],
-        "Business B": [matchedBiz.id],
+        "Business B": [biz.id],
         "Match Status": "Pending",
         "Match Date": new Date().toISOString()
       }
@@ -153,13 +141,9 @@ function connect() {
   .then(response => response.json())
   .then(data => {
     console.log('Match saved:', data);
-    document.getElementById("result").innerText = `💜 Connected with ${matchedBiz.fields["Business Name"]}!`;
-    card.classList.add("swipe-right");
-    setTimeout(() => {
-      currentIndex++;
-      card.classList.remove("swipe-right");
-      loadCard();
-    }, 500);
+    document.getElementById("result").innerText = `💘 Matched with ${biz.fields["Business Name"]}!`;
+    currentIndex++;
+    loadCard();
   })
   .catch(error => {
     console.error('Error saving match:', error);
@@ -167,13 +151,16 @@ function connect() {
 }
 
 function showMatches() {
-  document.getElementById("app").innerHTML = `<div><h1>📂 My Matches (Coming soon!)</h1><button onclick="goToSwiping()">⬅️ Back</button></div>`;
+  document.getElementById("app").innerHTML = `
+    <div><h1>📂 My Matches (coming soon!)</h1><button onclick="goToSwiping()">⬅️ Back</button></div>
+  `;
 }
 
 // --- Init ---
 window.onload = function() {
   showProfileSetup();
 };
+
 
 
 
