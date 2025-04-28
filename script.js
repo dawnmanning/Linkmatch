@@ -9,9 +9,15 @@ let currentUser = null;
 let allBusinesses = [];
 let currentIndex = 0;
 
-// --- Profile Setup ---
+// --- Profile Setup Screen ---
 function showProfileSetup() {
-  document.getElementById("app").innerHTML = `
+  console.log("Running showProfileSetup...");
+  const appDiv = document.getElementById("app");
+  if (!appDiv) {
+    console.error('App div not found!');
+    return;
+  }
+  appDiv.innerHTML = `
     <div class="profile-setup">
       <h1>🚀 Build Your Business Profile</h1>
       <input id="bizName" type="text" placeholder="Business Name" />
@@ -25,18 +31,24 @@ function showProfileSetup() {
         <option value="Fashion">Fashion</option>
         <option value="Crypto / Blockchain">Crypto / Blockchain</option>
       </select>
-      <input id="dr" type="number" placeholder="Your DR/DA score" />
+      <input id="dr" type="number" placeholder="Your DR/DA Score" />
       <button onclick="startSession()">Save & Start Matching</button>
     </div>
   `;
 }
 
-// --- Save Profile ---
+// --- Save Profile to Airtable ---
 function startSession() {
-  const name = document.getElementById("bizName").value;
-  const url = document.getElementById("bizURL").value;
+  console.log("Saving profile...");
+  const name = document.getElementById("bizName").value.trim();
+  const url = document.getElementById("bizURL").value.trim();
   const sector = document.getElementById("bizSector").value;
   const dr = parseInt(document.getElementById("dr").value) || Math.floor(Math.random() * 30) + 20;
+
+  if (!name || !url || !sector) {
+    alert('Please complete all fields.');
+    return;
+  }
 
   const profileData = {
     "Business Name": name,
@@ -61,22 +73,23 @@ function startSession() {
   })
   .catch(error => {
     console.error('Error saving profile:', error);
-    alert('Failed to create profile.');
+    alert('Failed to save profile.');
   });
 }
 
 // --- Load Businesses (Dummy for now) ---
 function loadBusinesses() {
-  console.log('Businesses loaded! (Simulated)');
-  document.getElementById("app").innerHTML = `
+  console.log("Loading businesses...");
+  const appDiv = document.getElementById("app");
+  appDiv.innerHTML = `
     <div class="swipe-container">
       <h1>🎉 Profile Created Successfully!</h1>
-      <p>Start swiping soon...</p>
+      <p>Swipe businesses coming soon...</p>
     </div>
   `;
 }
 
-// --- Make Functions Available Globally ---
+// --- Expose functions globally ---
 window.showProfileSetup = showProfileSetup;
 window.startSession = startSession;
 
