@@ -1,4 +1,4 @@
-/* General Styles */
+/* --- Global Styles --- */
 :root {
     --primary-purple: #7f00ff;
     --secondary-purple: #e100ff;
@@ -14,6 +14,7 @@ body {
     color: var(--white);
 }
 
+/* --- Header --- */
 header {
     background: var(--primary-purple);
     color: var(--white);
@@ -51,11 +52,12 @@ header nav a:last-child {
     border-radius: 30px;
 }
 
+/* --- Hero Section --- */
 #hero {
     background: var(--primary-purple);
     color: var(--white);
     text-align: center;
-    padding: 100px 20px;
+    padding: 120px 20px 60px;
 }
 
 #hero h1 {
@@ -68,6 +70,7 @@ header nav a:last-child {
     margin-bottom: 20px;
 }
 
+/* --- Call to Action Button --- */
 .cta-btn {
     background-color: var(--secondary-purple);
     color: var(--white);
@@ -75,18 +78,23 @@ header nav a:last-child {
     font-weight: bold;
     border-radius: 50px;
     text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
     transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
 }
 
 .cta-btn:hover {
     background-color: var(--primary-purple);
 }
 
+/* --- How It Works Section --- */
 #how-it-works {
     background: var(--white);
     color: var(--dark);
     text-align: center;
-    padding: 50px 20px;
+    padding: 80px 20px;
 }
 
 #how-it-works h2 {
@@ -96,7 +104,8 @@ header nav a:last-child {
 
 .steps {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 30px;
     margin-bottom: 30px;
 }
@@ -105,6 +114,7 @@ header nav a:last-child {
     background: var(--gray);
     padding: 30px;
     border-radius: 10px;
+    width: 280px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -113,15 +123,58 @@ header nav a:last-child {
     margin-bottom: 10px;
 }
 
+/* --- Get Started Section --- */
 #get-started {
     text-align: center;
-    padding: 50px 20px;
+    padding: 80px 20px;
 }
 
+/* --- Footer --- */
 footer {
     background: var(--primary-purple);
     color: var(--white);
     text-align: center;
     padding: 20px;
+    margin-top: 40px;
 }
 
+/* --- Injected App Section (Profile Setup) --- */
+#app {
+    margin-top: 100px;
+    padding: 20px;
+    background: var(--white);
+    color: var(--dark);
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+}
+
+#app input,
+#app select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--gray);
+    font-size: 1rem;
+}
+
+#app button {
+    background-color: var(--secondary-purple);
+    color: var(--white);
+    padding: 12px 30px;
+    font-weight: bold;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+#app button:hover {
+    background-color: var(--primary-purple);
+}
