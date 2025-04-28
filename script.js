@@ -162,6 +162,8 @@ function showMatches() {
 window.onload = function() {
   showProfileSetup();
 };
-
+// Expose functions globally
+window.showProfileSetup = showProfileSetup;
+window.startSession = startSession;
 
 
