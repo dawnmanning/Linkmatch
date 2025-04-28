@@ -26,13 +26,15 @@ function showProfileSetup() {
         <option value="Crypto / Blockchain">Crypto / Blockchain</option>
       </select>
       <input id="dr" type="number" placeholder="Your DR/DA score" />
-      <button onclick="startSession()">Save & Start Matching</button>
+      <button onclick="startSession(event)">Save & Start Matching</button>
     </div>
   `;
 }
 
 // --- Save Profile to Airtable via Proxy ---
-function startSession() {
+function startSession(event) {
+  if (event) event.preventDefault();
+
   const name = document.getElementById("bizName").value;
   const url = document.getElementById("bizURL").value;
   const sector = document.getElementById("bizSector").value;
@@ -160,7 +162,6 @@ function showMatches() {
 window.onload = function() {
   showProfileSetup();
 };
-
 
 
 
